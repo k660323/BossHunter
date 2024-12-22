@@ -145,7 +145,7 @@
 
 + BaseScene
   + 씬마다 존재하는 씬 관리 클래스
-  + 해당 씬에 존재하는 네트워크 오브젝들을 관리
+  + 해당 씬에 존재하는 모든 네트워크 오브젝트들을 관리
     
 [BaseScene](https://github.com/k660323/BossHunter/blob/main/Scripts/Scenes/BaseScene.cs, "씬마다 존재하는 씬 관리 클래스")
 
@@ -163,7 +163,7 @@
 2. Managers클래스의 StartHost()함수 호출
 3. Mirror에서 내부 코어 함수 호출
 5. 호스트 서버 생성 연결
-6. OlineScene 로드 
+6. OnlineScene 로드 
 7. 로드 완료시 OnServerConnect를 호출하여 호스트 입장
 8. 서버에게 패킷을 보내 OnServerReady함수 콜백 호출
 9. LobbyScene 추가 생성 및 서버와 클라와 통신할 오브젝트 생성
@@ -176,107 +176,44 @@
 
 ##### **온라인 씬**
 + OnlineScene
-  + 세션 입장시 가장 먼저 생성되는 씬
+  + 클라이언트와 서버가 최초로 생성하는 씬
   + 여러 씬에서 사용되는 오브젝트들을 묶어 해당 씬에서 관리한다. (카메라, 포스트 프로세싱, 조명, 이벤트 시스템 등)
  
 [OnlineScene.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Scenes/OnlineScene.cs, "온라인 씬")
 
 
-**과정**
-1. FindCutstomId를 호출하여 결과를 bool형 반환 합니다.
-2. 사용가능한 이메일이면 CustomSignUp을 호출해 iD,PW를 설정합니다.
-3. 계정 생성이 완료되면 국가등록, 이메일 등록, 성공 알림 함수를 호출합니다.
-    
-[UI_Register.cs](https://github.com/k660323/FunnyLand/blob/main/Scripts/UI/Scene/UI_Register.cs, "등록 UI")
-
-
-##### **로그인**
-+ UI_Login
-  + 로그인 버튼 클릭시 LoginBtnClick() 함수를 통해 BackEnd에 해당 정보 전송 후 결과 반환
-  + 올바른 정보면 해당 플레이어의 Json 데이터를 가져와 초기화
-    
-[UI_Login.cs](https://github.com/k660323/FunnyLand/blob/main/Scripts/UI/Scene/UI_Login.cs, "로그인 UI")
-
-
-##### **ID, PW 찾기**
-+ UI_FindAccount
-  + FindID - 계정 등록시 작성한 email로 ID를 메일로 발송
-  + ResetPW - 계정 등록시 작성한 email, ID를 확인후 메일로 랜덤한 PW 발송
-    
-[UI_FindAccount.cs](https://github.com/k660323/FunnyLand/blob/main/Scripts/UI/Popup/UI_FindAccount.cs, "계정 찾기 UI")
-
-<br>
-
----
-
-<br>
-
-#### **로비 씬**
+##### **로비 씬**
 + LobbyScene
-  + 해당 씬만의 기능 수행 및 특정 오브젝트 관리
-  + 포톤 네트워크 로비에 입장 초기화 기능 수행
-    
-[LobbyScene.cs](https://github.com/k660323/FunnyLand/blob/main/Scripts/Scenes/LobbyScene.cs, "로그인 씬")
-            
+  + OnlineScene 로드후 다음으로 로드되는 컨텐츠 씬
+  + 유저가 플레이할 캐릭터를 선택하는 씬
+
 + UI_LobbyScene
-  + OnRoomListUpdate함수가 일정 주기 마다 콜백함수로 생성된 방 리스트 불러온다.
-  + 해당 씬에선 방생성, 방입장, 내정보, 상점, 옵션 설정이 가능합니다.
-    
-[UI_LobbyScene.cs](https://github.com/k660323/FunnyLand/blob/main/Scripts/UI/Scene/SceneUI/UI_LobbyScene.cs, "UI 로비 씬")
-            
-+ UI_FindRoom (방 찾기 및 입장)
-  + OnRoomListUpdate 함수에 들어온 방 정보들을 UI에 띄어주는 클래스
-  + 콜백으로 호출된 OnRoomListUpdate가 해당 클래스가 활성화 되어 있다면 SetRoomInfo() 호출
-  + 입장하려고하는 방의 인덱스로 리스트 배열의 방 정보를 가져와 해당 정보가 존재하고 만약 패스워드가 존재시 패스 워드 까지 입력받습니다.
-  + 방 최대 인원에 초과하는지 확인하고 조건을 충족시 PhotonNetwork.JoinRoom()을 호출하여 방에 입장합니다.
-    
-[UI_FindRoom.cs](https://github.com/k660323/FunnyLand/blob/main/Scripts/UI/Popup/UI_FindRoom.cs, "UI 방 찾기")
-            
-+ UI_RoomPW (방 입장 비밀번호)
-  + UI_FindRoom에서 시각화된 정보들중 만약 비밀번호를 설정 해놓으면 뜨는 팝업 UI
-  + 설정된 암호를 기입해야 방에 입장할 수 있다.
-    
-[UI_RoomPW.cs](https://github.com/k660323/FunnyLand/blob/main/Scripts/UI/Popup/UI_RoomPW.cs, "방 비밀번호 입력")
-              
-+ UI_CreateRoom (방 생성)
-  + 방 생성 버튼을 통해 해당 PopUp클래스인 UI_CreateRoom 생성
-  + 방제목, 비밀번호, 인원수, 라운드, 팀전, 팀킬, 공개방 여부를 설정 하여 방을 생성할 수 있습니다.
-  + 설정한 정보들은 CreateRoom를 호출할 시 매개변수로 넣어주고, 외부에 보일 방 정보도 아래와 같이 세팅해서 생성합니다.
-  + Managers.Photon.InitRoomProperties 함수는 사용자 지정 함수이며 RoomOption 객체를 생성해 로비에 보일 값을 설정하여 RoomOption을 반환하여 CreateRoom매개변수에 들어갑니다.
-    
-  [PhotonNetworkManager.cs](https://github.com/k660323/FunnyLand/blob/main/Scripts/Managers/Core/PhotonNetworkManager.cs, "포톤 전용 매니저 함수")
+  + 유저가 플레이할 캐릭터를 보여주고 선택하게 해주는 UI
 
-[UI_CreateRoom.cs](https://github.com/k660323/FunnyLand/blob/main/Scripts/UI/Popup/UI_CreateRoom.cs, "방 생성 UI")
-
-       
-+ UI_Room (방)
-  + 방 설정, 유저 슬롯 설정, 채팅, 게임 준비 시작할 수 있는 UI입니다.
-  + RequestUIPos(Player requestPlayer)
-    + 마스터 클라이언트에게 해당 플레이어 UI위치를 요청하는 함수
-  + SetUIPos(bool isInit, string parent)
-    + 요청을 처리한 마스터 클라이언트가 UI위치를 대상 클라이언트에게 알리는 함수 첫 초기화면 대상 클라이언트 소유의 UI_Player 생성, 아닐시 대상 그룹(레드팀, 블루팀)에 추가
-  + EditRoomOption()
-    + 방설정창 호출
-  + Ready()
-    + 해당 플레이어 준비, UI_Player의 bool형인 ready변수가 수정된다. 이 변수는 OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)를 통해 콜백으로 모든 클라이언트에게 동기화 된다.
-  + GameStart()
-    + 마스터 클라이언트가 Ready시 호출, 팀전일 경우 선행 조건으로 팀 인원수 체크, Ready여부 체크하여 모든 플레이어가 Ready시 GameSceneLoad()함수를 RPC하여 모두 에게 알려 씬을 로드한다.
+**마을 입장 과정**
+1. UI_LobbyScene의 스크립트 Init()함수 초기화
+2. Init()에서 버튼 바인딩 및 초기화
+3. 플레이어가 캐릭터와 닉네임을 정하고 시작 버튼을 누른다.
+4. 해당 버튼에 바인딩된 함수 실행하여 올바른 정보인지 확인하고 서버에게 StartSpawnPlayer 구조체 메시지를 보낸다.
+5. Managers클래스에서 시작시 해당 구조체와 바인딩한 함수 ResourcesMangers의 OnStartSpawnPlayer를 호출
+6. 해당 플레이어의 오브젝트를 제거 및 연결을 끊고 새로운 오브젝트를 생성, 마을 씬으로 이동 시킨후 다시 클라이언트와 연결 시킨다.
     
-**방플레이어 이동**
-1. 마스터 클라이언트가 처리
-2. 마우스 클릭시 oNpOINTERdOWN()호출 대상 ui를 클릭하면 ui가 다른 ui에 가리지 않도록 SetAsLastSibling()호출
-3. 마우스 클릭 중 OnPointerDrag() 호출 해당 UI가 마우스 포인터를 따라 움직인다.
-4. 마우스 클릭을 땠을 때 OnPointerUp()호출 PointerUppOS()를 통해 Raycast를 한 후 리스트 중 UI_TeamRange를 가진 컴포넌트랑 충돌 했을 시 해당 UI를 MoveTeam()함수를 통해 이동 시킨다. 
+[UI_LobbyScene.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/Scene/UI_LobbyScene.cs, "로비 UI")
 
-[UI_Room.cs](https://github.com/k660323/FunnyLand/blob/main/Scripts/UI/Scene/SceneUI/UI_Room.cs, "방")
+[Resources.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Managers/Core/ResourceManager.cs, "Resources")
 
 
-+ UI_Player
-  + 방에 입장한 플레이어 UI 입니다.
-  + 해당 방에서 마스터 클라이언트와 클라이언트와 통신할 수 있는 매개체 입니다.
-  + 플레이어 정보, UI 이동, 강퇴가 가능합니다.
+##### **마을 씬**
++ TownScene
+  + 플레이어 생성시 입장 하는 마을
+  + 채팅, 플레이어와 상호 작용, 던전 입장을 할 수 있습니다.
+
++ InstacnePortal
+  + 던전에 입장하기 위한 포탈
+  + 해당 포탈에 트리거 충돌시 던전 UI 생성
+  + 던전 선택시 바인딩된 함수 MoveToInstanceScene이 서버에서 실행하여 씬 생성후 유저들을 이동 시켜줍니다.
     
-[UI_Player.cs](https://github.com/k660323/FunnyLand/blob/main/Scripts/UI/Scene/UI_Player.cs, "방 플레이어 UI")
+[InstancePortal.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/InstancePortal.cs, "인스턴드 포탈")
 
 <br>
 
@@ -445,19 +382,17 @@
 
 #### **기타**
 + UI_Chat
-  + 룸 오브젝트
-  + InputField에 보낼 텍스트를 입력 후 전송시, 포멧으로 플레이어 닉네임 삽입 후 포톤 서버에 전송하여 서버에서 모든 클라이언트에게 데이터 전송한다.
+  + 채팅 오브젝트
+  + InputField에 보낼 텍스트를 입력 후 전송시, 포멧으로 플레이어 닉네임 삽입 후 씬에 BaseSceneNetwork를 상속받은 클래스를 찾아 IChatable인터페이스를 상속받은지 확인한다.
+  + 상속받았을 경우 리플렉션이[Command]인 CTS.ChatRPC 함수를 호출하여 해당씬에 존재하는 플레이어에게 채팅 메시지를 전송합니다.
     
-[UI_Chat.cs](https://github.com/k660323/FunnyLand/blob/main/Scripts/UI/Scene/UI_Chat.cs, "채팅")
-     
-+ EnviromentController
-  + 3D 게임의 경험을 다양하게 하기 위한 일종의 환경광 프리셋 클래스
+[UI_Chat.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/Scene/UI_Chat.cs, "UI_Chat")
 
-## 환경광 동기화 ##
-  + 마스터 클라이언트가 Start함수를 실행시 enviroments 배열 중에서 랜덤으로 선택
-  + ApplyWeather함수를 RPC해서 모든 클라이언트의 환경과을 동일하게 맞춰줍니다.
++ UI_PlayerUI
+  + 환경 설정, 인벤토리, 능력치, 파티 등 플레이어에 관련된 UI를 접근하게 하는 클래스
     
-[EnviromentController.cs](https://github.com/k660323/FunnyLand/blob/main/Scripts/Contents/EnviromentController.cs, "환경 컨트롤러")
+[UI_PlayerUI.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/Scene/UI_PlayerUI.cs, "UI_PlayerUI")
+     
 
 <br>
 
