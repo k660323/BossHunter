@@ -132,7 +132,7 @@
 + LayerManager
   + Layer의 비트마스크를 미리 계산해 캐싱해놓은 매니저 클래스
          
-[Managers.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Managers/Managers.cs, "매니저 코드")
+[Managers.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Managers/Managers.cs)
 
 <br>
 
@@ -147,7 +147,7 @@
   + 씬마다 존재하는 씬 관리 클래스
   + 해당 씬에 존재하는 모든 네트워크 오브젝트들을 관리
     
-[BaseScene](https://github.com/k660323/BossHunter/blob/main/Scripts/Scenes/BaseScene.cs, "씬마다 존재하는 씬 관리 클래스")
+[BaseScene](https://github.com/k660323/BossHunter/blob/main/Scripts/Scenes/BaseScene.cs)
 
    
 #### **오프라인 씬**
@@ -155,7 +155,7 @@
   + 서버를 열거나 서버에 참여하기 전의 씬
   + 각종 Managers클래스의 데이터 및 리소스들을 미리 로드하는 씬 입니다.
 
-[OfflineScene](https://github.com/k660323/BossHunter/blob/main/Scripts/Scenes/OfflineScene.cs, "오프라인 씬")
+[OfflineScene](https://github.com/k660323/BossHunter/blob/main/Scripts/Scenes/OfflineScene.cs)
 
 
 **호스트 서버 생성 흐름**
@@ -171,7 +171,7 @@
 + UI_MenuScene
    + 호스트 서버 생성, 서버 참여, 옵션, 종료 기능이 구현되어 있습니다.
      
-[UI_MenuScene.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/Scene/UI_MenuScene.cs, "오프라인 씬 UI")
+[UI_MenuScene.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/Scene/UI_MenuScene.cs)
 
 
 ##### **온라인 씬**
@@ -179,7 +179,7 @@
   + 클라이언트와 서버가 최초로 생성하는 씬
   + 여러 씬에서 사용되는 오브젝트들을 묶어 해당 씬에서 관리한다. (카메라, 포스트 프로세싱, 조명, 이벤트 시스템 등)
  
-[OnlineScene.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Scenes/OnlineScene.cs, "온라인 씬")
+[OnlineScene.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Scenes/OnlineScene.cs)
 
 
 ##### **로비 씬**
@@ -198,9 +198,9 @@
 5. Managers클래스에서 시작시 해당 구조체와 바인딩한 함수 ResourcesMangers의 OnStartSpawnPlayer를 호출
 6. 해당 플레이어의 오브젝트를 제거 및 연결을 끊고 새로운 오브젝트를 생성, 마을 씬으로 이동 시킨후 다시 클라이언트와 연결 시킨다.
     
-[UI_LobbyScene.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/Scene/UI_LobbyScene.cs, "로비 UI")
+[UI_LobbyScene.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/Scene/UI_LobbyScene.cs)
 
-[Resources.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Managers/Core/ResourceManager.cs, "Resources")
+[Resources.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Managers/Core/ResourceManager.cs)
 
 
 ##### **마을 씬**
@@ -213,7 +213,7 @@
   + 해당 포탈에 트리거 충돌시 던전 UI 생성
   + 던전 선택시 바인딩된 함수 MoveToInstanceScene이 서버에서 실행하여 씬 생성후 유저들을 이동 시켜줍니다.
     
-[InstancePortal.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/InstancePortal.cs, "인스턴드 포탈")
+[InstancePortal.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/InstancePortal.cs)
 
 <br>
 
@@ -227,14 +227,14 @@
   + 동적으로 생성되고 사라지는 씬
   + 모든 네트워크 오브젝트를 가지고 있던 BaseScene을 상속받았기에 플레이어 오브젝트를 추적하여 씬 제거 여부를 수행한다.
     
-[BaseInstanceScene.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Scenes/Instance/BaseInstanceScene.cs, "인스턴스 씬")
+[BaseInstanceScene.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Scenes/Instance/BaseInstanceScene.cs)
 
 + MonsterSpawner
   + 몬스터는 동적으로 생성하는 스포너
   + 몬스터 종류, 스폰 수, 스폰 반경, 지속성을 미리 설정하면 런타임에 설정 값에 맞게 몬스터를 스폰해준다.
   + 몬스터 스폰 최대 숫자는 스폰 수를 넘어가지 않는다.
 
-[MonsterSpanwer.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/MonsterSpawner.cs, "몬스터 스폰")
+[MonsterSpanwer.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/MonsterSpawner.cs)
 
 <br>
 
@@ -248,12 +248,12 @@
   + InputField에 보낼 텍스트를 입력 후 전송시, 포멧으로 플레이어 닉네임 삽입 후 씬에 BaseSceneNetwork를 상속받은 클래스를 찾아 IChatable인터페이스를 상속받은지 확인한다.
   + 상속받았을 경우 리플렉션이[Command]인 CTS.ChatRPC 함수를 호출하여 해당씬에 존재하는 플레이어에게 채팅 메시지를 전송합니다.
     
-[UI_Chat.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/Scene/UI_Chat.cs, "UI_Chat")
+[UI_Chat.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/Scene/UI_Chat.cs)
 
 + UI_PlayerUI
   + 환경 설정, 인벤토리, 능력치, 파티 등 플레이어에 관련된 UI를 접근하게 하는 클래스
     
-[UI_PlayerUI.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/Scene/UI_PlayerUI.cs, "UI_PlayerUI")
+[UI_PlayerUI.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/Scene/UI_PlayerUI.cs)
      
 
 <br>
