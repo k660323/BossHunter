@@ -136,12 +136,40 @@
          
 [Managers.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Managers/Managers.cs)
 
+
 <br>
 
 ---
 
 <br>
-     
+
+### **핵심 컨텐츠**
+
+#### **플레이어**
+
+
+#### **몬스터**
+
+
+#### **파티 시스템**
+
+
+#### **인벤토리**
+
+
+#### **장비창**
+
+
+#### **능력치**
+
+
+<br>
+
+---
+
+<br>
+
+
 ### **씬**
 전체적인 씬은 오프라인, 온라인, 로비, 마을, 던전 씬으로 나눠서 구현
 
@@ -217,6 +245,7 @@
     
 [InstancePortal.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/InstancePortal.cs)
 
+
 <br>
 
 ---
@@ -231,12 +260,14 @@
     
 [BaseInstanceScene.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Scenes/Instance/BaseInstanceScene.cs)
 
+
 + MonsterSpawner
   + 몬스터는 동적으로 생성하는 스포너
   + 몬스터 종류, 스폰 수, 스폰 반경, 지속성을 미리 설정하면 런타임에 설정 값에 맞게 몬스터를 스폰해준다.
   + 몬스터 스폰 최대 숫자는 스폰 수를 넘어가지 않는다.
 
 [MonsterSpanwer.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/MonsterSpawner.cs)
+
 
 <br>
 
@@ -251,6 +282,7 @@
   + 상속받았을 경우 리플렉션이[Command]인 CTS.ChatRPC 함수를 호출하여 해당씬에 존재하는 플레이어에게 채팅 메시지를 전송합니다.
     
 [UI_Chat.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/Scene/UI_Chat.cs)
+
 
 + UI_PlayerUI
   + 환경 설정, 인벤토리, 능력치, 파티 등 플레이어에 관련된 UI를 접근하게 하는 클래스
