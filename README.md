@@ -145,10 +145,49 @@
 
 ### **핵심 컨텐츠**
 
-#### **플레이어**
+#### **생명체**
++ Creature
+  + 컨텐츠 핵심 클래스
+  + 사용할 여러 컴포넌트 관리 및 초기화하는 매니저 클래스
+  + Player, Monster 클래스의 부모 클래스
 
+[Creature.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Creature/Creature.cs)
 
-#### **몬스터**
+##### **플레이어**
++ Player
+  + 플레이어 캐릭터의 기초가 클래스
+  + 로컬 플레이어가 쉽게 사용할 수 있도록 싱글톤 기능 구현
+  + 컨트롤러, 파티, 클라이언트 전용 UI, 인벤토리 등 플레이어가 사용할 컴포넌트 관리 및 초기화
+
+[Player.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Creature/Player/Player.cs)
+
++ Warrior, Archor
+  + Player를 상속받은 클래스
+  + FSM, PlayerType 정의 및 초기화
+  
+[Warrior.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Creature/Player/Player.cs)
+  
+[Archor.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Creature/Player/Archer.cs)
+
+##### **몬스터**
++ Monster
+ + 몬스터의 기초가 되는 클래스
+ + 몬스터 컨트롤러, 스텟, 상태머신, 삭제 액션 등 컴포넌트 관리 및 초기화
+
++ DefaultMonster
+  + 일반 몬스터가 사용하는 클래스
+  + 피격판정을 처리하는 IHitable, 아이템을 드랍하는 IDropable 인터페이스를 상속받아 구현하고 있습니다.
+
+[DefaultMonster.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Creature/Monster/DefaultMonster.cs)
+
++ FlowerDryad
+  + 보스 몬스터가 사용하는 클래스
+  + 피격판정을 처리하는 IHitable, 아이템을 드랍하는 IDropable 인터페이스를 상속받아 구현하고 있습니다.
+  + 콜라이더 정보를 처리하는 ICollider 인터페이스를 추가로 상속받아 구현하고 있습니다.
+  + Skill State가 추가로 등록되어 일정확률로 스킬을 사용합니다.
+
+[FlowerDryad](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Creature/Monster/FlowerDryad.cs)
+
 
 
 #### **파티 시스템**
