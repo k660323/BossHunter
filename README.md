@@ -280,6 +280,8 @@
 <br>
 
 #### **인벤토리**
++ Inventory
+  + 
 
 <br>
 
@@ -289,7 +291,8 @@
 
 #### **장비창**
 + Equipment
-
+  +
+  
 <br>
 
 ---
@@ -300,6 +303,7 @@
 + Stat
   + Creature(Player, Monster)의 능력치를 관리하는 클래스 (Hp,Mp,Speed...)
   + 값 변경에 따른 결과를 사전에 등록한 관찰자에게 알려주는 방식의 옵저버 패턴 구현
+
 [Stat.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Stat/Stat.cs)
 
 
