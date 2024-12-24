@@ -213,10 +213,17 @@
 3. 상대 플레이어 캐릭터에 마우스를 대고 클릭
 4. PlayerController에서 OnPlayerCilcked 함수가 콜백 호출되어 Raycast를 수행한다.
 5. Hit 오브젝트가 있고 플레이어이나 로컬 플레이어가 아니면 PlayerUI 멤버변수인 UI_Interaction을 띄운다. 
+
 [UI_Interaction.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/SubItem/UI_Interaction.cs)
+
+
 6. 파티요청 버튼을 클릭하면 해당 버튼에 바인딩된 함수를 호출하여 조건 충족시 서버 함수인 CTS_PartyApplication()를 호출 하도록 요청합니다.
 7. CTS_PartyApplication() 함수를 호출하는 서버는 해당 유저의 파티 여부를 확인후 없으면 해당 유저에게 파티 요청에 대한 UI를 띄우도록 RPC_ShowPartyInvitation 함수를 RPC 합니다.
 8. 서버의 RPC 요청을 받은 클라이언트는 UI_PartyInvitation를 화면에 띄웁니다.
+
+[UI_PartyInvitation.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/Popup/UI_PartyInvitation.cs)
+
+
 9. 해당 UI는 초대자의 이름으로 파티 요청에 대한 정보며 수락/취소가 가능합니다.
 10. 수락시 수락한 플레이어의 파티 클래스에서 서버 함수인 CTS_RequestJoinPart() 함수를 서버에게 호출하도록 요청합니다.
 11. 서버에서는 수락한 플레이어의 파티 클래스의 CTS_RequestJoinPart()를 실행하며 매개변수로 들어온 파티장의 파티 객체의 JoinParty()에 수락한 플레이어를 매개변수로 넣오 파티에 참가 시킵니다.
@@ -387,7 +394,7 @@
 ## 6. 느낀점
 + 네트워크 게임은 직접 게임 플레이 하지 않으면 버그를 알 수 가 없다. 호스트, 서버, 클라이언트 입장을 고려해서 구현 해야 하기 때문에 만약 3중 하나라도 고려하지 않고 구현하면 버그가 생겨버린다. 그래서 항상 모든 입장을 고려해서 코딩을 해야 하고 매번 빌드하여 테스트하는 꾸준함이 필요한 것 같다.
 + 만약에 다음에도 Mirror를 이용한다면 호스트 포지션은 제외하고 코드를 작성할 예정입니다.  대부분 문제가 호스트에서 발생하기도 하고 호스트 포지션 자체가 서버,클라의 중간 포지션이기 때문에 고려해야할 요소가 많기 때문입니다.
-
++ 작성하면서 다시 보는 건데 파티 시스템이 너무 복잡하다. 만약 파티 시스템을 다시 만들게 된다면 서버에서 파티를 관리하는 매니저 클래스를 생성해서 파티 정보를 매니저에서 관리하도록 하도록 하고 각 플레이어에는 서버에서 받은 값을 기반으로 표시하는 방법으로 구현해볼 생각이다.
 
 ## 7. 플레이 영상
 + https://www.youtube.com/watch?v=ubSgPd6OHsY
