@@ -219,7 +219,7 @@
 [PlayerController.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Controllers/PlayerController.cs)
 
 + MonsterController
-  + 인공지능이 StateMachine를 통해 필요로 하는 데이터를 정의한 클래스 (스폰 위치, 추적 시작 위치, 목표) 
+  + 인공지능이 StateMachine를 통해 필요로 하는 데이터를 정의한 클래스 (스폰 위치, 추적 시작 위치, 공격 대상) 
 
 [MonsterController.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Controllers/MonsterController.cs)
 
