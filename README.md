@@ -150,7 +150,6 @@
   + 컨텐츠 핵심 클래스
   + 사용할 여러 컴포넌트 관리 및 초기화하는 매니저 클래스
   + Player, Monster 클래스의 부모 클래스
-
 [Creature.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Creature/Creature.cs)
 
 <br>
@@ -202,10 +201,30 @@
 
 <br>
 <br>
+#### **StateMachine**
++ StateMachine
+  + FSM 방식으로 구현
+  + 행위를 클래스로 구현하여 모듈화
+[StateMachine.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/StateMachine/StateMachine.cs)
 
+<br>
+<br>
+#### **Controller**
++ PlayerController
+  + 사용자 입력에 대한 함수 바인딩 및 입력 여부 캐싱
+[PlayerController.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Controllers/PlayerController.cs)
+
++ MonsterController
+  + 인공지능이 StateMachine를 통해 필요로 하는 데이터를 정의한 클래스 (스폰 위치, 추적 시작 위치, 목표) 
+[MonsterController.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Controllers/MonsterController.cs)
+
+
+<br>
+<br>
 #### **파티 시스템**
 + Party
   + 유저와 파티를 맺어 같이 던전에 입장 하도록 하는 기능 수행
+
 
 **파티 초대 과정**
 1. UI_Party를 열고 만들기 버튼을 눌러 서버 함수인 CTS_CreateParty()를 서버에게 호출 하도록 요청합니다.
@@ -229,6 +248,7 @@
 11. 서버에서는 수락한 플레이어의 파티 클래스의 CTS_RequestJoinPart()를 실행하며 매개변수로 들어온 파티장의 파티 객체의 JoinParty()에 수락한 플레이어를 매개변수로 넣오 파티에 참가 시킵니다.
 12. JoinParty()는 각 파티원에게 Party객체에 접근하여 참가자의 정보를 partDic 자료구조에 저장합니다. 그리고 새로운 참가자의 Party객체에 파티원 목록을 넣어주면 파티 초대가 완료 됩니다.
 
+
 **파티 탈퇴 과정**
 1. 클라이언트에서 파티 탈퇴 버튼을 누르면 서버 함수인 CTS_ResignPlayerToParty() 호출 하도록 요청합니다.
 2. 요청받은 서버는 CTS_ResignPlayerToParty()를 호출 하며 대상 플레이어 객체의 Party객체의 partyDic에서 해당 플레이어의 제거하고 서버함수인 CTS_SecessionParty()를 호출합니다.
@@ -238,13 +258,18 @@
 
 [Party.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Party/Party.cs)
 
+
 #### **인벤토리**
 
 
 #### **장비창**
-
++ Equipment
 
 #### **능력치**
++ Stat
+  + Creature(Player, Monster)의 능력치를 관리하는 클래스 (Hp,Mp,Speed...)
+  + 값 변경에 따른 결과를 사전에 등록한 관찰자에게 알려주는 방식의 옵저버 패턴 구현
+[Stat.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Stat/Stat.cs)
 
 
 <br>
