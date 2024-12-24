@@ -206,6 +206,7 @@
 + StateMachine
   + FSM 방식으로 구현
   + 행위를 클래스로 구현하여 모듈화
+
 [StateMachine.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/StateMachine/StateMachine.cs)
 
 <br>
@@ -214,10 +215,12 @@
 #### **Controller**
 + PlayerController
   + 사용자 입력에 대한 함수 바인딩 및 입력 여부 캐싱
+
 [PlayerController.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Controllers/PlayerController.cs)
 
 + MonsterController
   + 인공지능이 StateMachine를 통해 필요로 하는 데이터를 정의한 클래스 (스폰 위치, 추적 시작 위치, 목표) 
+
 [MonsterController.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Controllers/MonsterController.cs)
 
 
