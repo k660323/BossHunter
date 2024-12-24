@@ -159,7 +159,7 @@
 ##### **플레이어**
 + Player
   + 플레이어 캐릭터의 기초가 클래스
-  + 로컬 플레이어가 쉽게 사용할 수 있도록 싱글톤 기능 구현
+  + 로컬 플레이어가 쉽게 사용할 수 있도록 클라이언트 한정 싱글톤 구현
   + 컨트롤러, 파티, 클라이언트 전용 UI, 인벤토리 등 플레이어가 사용할 컴포넌트 관리 및 초기화
 
 [Player.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Creature/Player/Player.cs)
@@ -196,7 +196,7 @@
   + 보스 몬스터가 사용하는 클래스
   + 피격판정을 처리하는 IHitable, 아이템을 드랍하는 IDropable 인터페이스를 상속받아 구현하고 있습니다.
   + 콜라이더 정보를 처리하는 ICollider 인터페이스를 추가로 상속받아 구현하고 있습니다.
-  + Skill State가 추가로 등록되어 일정확률로 스킬을 사용합니다.
+  + Skill State가 추가로 등록되어 일정 확률로 스킬을 사용합니다.
 
 [FlowerDryad](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Creature/Monster/FlowerDryad.cs)
 
@@ -204,7 +204,32 @@
 <br>
 
 #### **파티 시스템**
++ Party
+  + 유저와 파티를 맺어 같이 던전에 입장 하도록 하는 기능 수행
 
+**파티 초대 과정**
+1. UI_Party를 열고 만들기 버튼을 눌러 서버 함수인 CTS_CreateParty()를 서버에게 호출 하도록 요청합니다.
+2. 서버에서 CTS_CreateParty() 호출하여 해당 파티를 창설합니다.
+3. 상대 플레이어 캐릭터에 마우스를 대고 클릭
+4. PlayerController에서 OnPlayerCilcked 함수가 콜백 호출되어 Raycast를 수행한다.
+5. Hit 오브젝트가 있고 플레이어이나 로컬 플레이어가 아니면 PlayerUI 멤버변수인 UI_Interaction을 띄운다. 
+[UI_Interaction.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/SubItem/UI_Interaction.cs)
+6. 파티요청 버튼을 클릭하면 해당 버튼에 바인딩된 함수를 호출하여 조건 충족시 서버 함수인 CTS_PartyApplication()를 호출 하도록 요청합니다.
+7. CTS_PartyApplication() 함수를 호출하는 서버는 해당 유저의 파티 여부를 확인후 없으면 해당 유저에게 파티 요청에 대한 UI를 띄우도록 RPC_ShowPartyInvitation 함수를 RPC 합니다.
+8. 서버의 RPC 요청을 받은 클라이언트는 UI_PartyInvitation를 화면에 띄웁니다.
+9. 해당 UI는 초대자의 이름으로 파티 요청에 대한 정보며 수락/취소가 가능합니다.
+10. 수락시 수락한 플레이어의 파티 클래스에서 서버 함수인 CTS_RequestJoinPart() 함수를 서버에게 호출하도록 요청합니다.
+11. 서버에서는 수락한 플레이어의 파티 클래스의 CTS_RequestJoinPart()를 실행하며 매개변수로 들어온 파티장의 파티 객체의 JoinParty()에 수락한 플레이어를 매개변수로 넣오 파티에 참가 시킵니다.
+12. JoinParty()는 각 파티원에게 Party객체에 접근하여 참가자의 정보를 partDic 자료구조에 저장합니다. 그리고 새로운 참가자의 Party객체에 파티원 목록을 넣어주면 파티 초대가 완료 됩니다.
+
+**파티 탈퇴 과정**
+1. 클라이언트에서 파티 탈퇴 버튼을 누르면 서버 함수인 CTS_ResignPlayerToParty() 호출 하도록 요청합니다.
+2. 요청받은 서버는 CTS_ResignPlayerToParty()를 호출 하며 대상 플레이어 객체의 Party객체의 partyDic에서 해당 플레이어의 제거하고 서버함수인 CTS_SecessionParty()를 호출합니다.
+3. 파티가 없으면 return을 수행 합니다.
+4. 탈퇴한 유저가 만약 파티장이면 파티원에게 해당 파티가 사라짐을 알리기 위해 partDic 변수를 초기화 시킵니다.
+5. 파티장이 아니면 모든 파티원에게 해당 플레이어가 사라짐을 알리기 위해 모든 파티원의 partDic 변수에 해당 파티원을 제거합니다.
+
+[Party.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Party/Party.cs)
 
 #### **인벤토리**
 
