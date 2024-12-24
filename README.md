@@ -201,6 +201,7 @@
 
 <br>
 <br>
+
 #### **StateMachine**
 + StateMachine
   + FSM 방식으로 구현
@@ -209,6 +210,7 @@
 
 <br>
 <br>
+
 #### **Controller**
 + PlayerController
   + 사용자 입력에 대한 함수 바인딩 및 입력 여부 캐싱
@@ -221,6 +223,7 @@
 
 <br>
 <br>
+
 #### **파티 시스템**
 + Party
   + 유저와 파티를 맺어 같이 던전에 입장 하도록 하는 기능 수행
