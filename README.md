@@ -208,7 +208,7 @@
 #### **StateMachine**
 + StateMachine
   + FSM 방식으로 구현
-  + 행위를 클래스로 구현하여 모듈화
+  + 행위(상태)를 관리하는 컨트롤러
 
 [StateMachine.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/StateMachine/StateMachine.cs)
 
