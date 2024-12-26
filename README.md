@@ -212,6 +212,18 @@
 
 [StateMachine.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/StateMachine/StateMachine.cs)
 
++ BaseState
+  + StateMachine이 내부적으로 사용하는 클래스
+  + 상태에 대한 상세한 기능을 구현한 클래스
+  + 상태 진입 조건, 상태 진입, 상태 진행중, 상태 변경에 따른 가상 함수 구현
+    
+[BaseState](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/StateMachine/BaseState/BaseState.cs)
+
+**상태를 구현시 모든 클래스는 BaseState를 상속받아 구현 한다.**
+
+[States](https://github.com/k660323/BossHunter/tree/main/Scripts/Contents/StateMachine/BaseState)
+
+
 <br>
 
 ---
