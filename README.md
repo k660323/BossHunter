@@ -281,7 +281,24 @@
 
 #### **인벤토리**
 + Inventory
-  + 
+  + 플레이어가 소유한 아이템 데이터를 관리하는 클래스
+
+[Inventory.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Inventory/Inventory.cs)
+
+
++ UI_Inventory
+  + 플레이어가 소유한 아이템을 시각화 하여 보여주는 UI
+  + 아이템과 상호작용 가능
+    
+[UI_Inventory.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/SubItem/UI_Inventory.cs)
+
+     
++ Item
+  + 아이템 메타 데이터를 정의하는 클래스
+  + 모든 아이템은 상위 클래스 Item을 상속받아 구현
+
+[Item](https://github.com/k660323/BossHunter/tree/main/Scripts/Contents/Item)  
+
 
 <br>
 
@@ -291,8 +308,19 @@
 
 #### **장비창**
 + Equipment
-  +
-  
+  + 플레이어가 장착한 장비 데이터를 관리하는 클래스
+  + 장착시 아이템 정보에 따라 해당 능력치 콜백 방식으로 반영
+  + Equipment를 상속받은 아이템에 한해서 장착 가능
+  + 장착 부위들을 Enum 구현하여 Func 배열을 통해 Enum값에 따른 콜백 기능 구현
+[Equipment.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Weapon/EquipmentManager.cs)
+
+
++ UI_Equipment
+  + 플레이어가 장착한 장비 데이터를 시각화 하여 UI에 표시하는 클래스
+ 
+[UI_Equipment.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/SubItem/UI_Inventory.cs)
+
+
 <br>
 
 ---
