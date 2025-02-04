@@ -164,6 +164,8 @@
 
 [Player.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Creature/Player/Player.cs)
 
+<br>
+
 + Warrior, Archor
   + Player를 상속받은 클래스
   + FSM, PlayerType 정의 및 초기화
@@ -222,9 +224,11 @@
     
 [BaseState](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/StateMachine/BaseState/BaseState.cs)
 
+<br>
+
 **상태를 구현시 모든 클래스는 BaseState를 상속받아 구현 한다.**
 
-[States](https://github.com/k660323/BossHunter/tree/main/Scripts/Contents/StateMachine/BaseState)
+[구현된 상태 스크립트](https://github.com/k660323/BossHunter/tree/main/Scripts/Contents/StateMachine/BaseState)
 
 
 <br>
