@@ -335,6 +335,7 @@
   + 장착시 아이템 정보에 따라 해당 능력치 콜백 방식으로 반영
   + Equipment를 상속받은 아이템에 한해서 장착 가능
   + 장착 부위들을 Enum 구현하여 Func 배열을 통해 Enum값에 따른 콜백 기능 구현
+    
 [Equipment.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Weapon/EquipmentManager.cs)
 
 <br>
