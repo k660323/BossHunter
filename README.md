@@ -213,6 +213,8 @@
 
 [StateMachine.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/StateMachine/StateMachine.cs)
 
+<br>
+
 + BaseState
   + StateMachine이 내부적으로 사용하는 클래스
   + 상태에 대한 상세한 기능을 구현한 클래스
@@ -236,6 +238,8 @@
   + 사용자 입력에 대한 함수 바인딩 및 입력 여부 캐싱
 
 [PlayerController.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Controllers/PlayerController.cs)
+
+<br>
 
 + MonsterController
   + 인공지능이 StateMachine를 통해 필요로 하는 데이터를 정의한 클래스 (스폰 위치, 추적 시작 위치, 공격 대상) 
@@ -298,6 +302,7 @@
 
 [Inventory.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Inventory/Inventory.cs)
 
+<br>
 
 + UI_Inventory
   + 플레이어가 소유한 아이템을 시각화 하여 보여주는 UI
@@ -305,6 +310,7 @@
     
 [UI_Inventory.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/SubItem/UI_Inventory.cs)
 
+<br>
      
 + Item
   + 아이템 메타 데이터를 정의하는 클래스
@@ -327,6 +333,7 @@
   + 장착 부위들을 Enum 구현하여 Func 배열을 통해 Enum값에 따른 콜백 기능 구현
 [Equipment.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Weapon/EquipmentManager.cs)
 
+<br>
 
 + UI_Equipment
   + 플레이어가 장착한 장비 데이터를 시각화 하여 UI에 표시하는 클래스
@@ -382,7 +389,9 @@
 7. 로드 완료시 OnServerConnect를 호출하여 호스트 입장
 8. 서버에게 패킷을 보내 OnServerReady함수 콜백 호출
 9. LobbyScene 추가 생성 및 서버와 클라와 통신할 오브젝트 생성
-    
+
+<br>
+
 + UI_MenuScene
    + 호스트 서버 생성, 서버 참여, 옵션, 종료 기능이 구현되어 있습니다.
      
@@ -401,6 +410,8 @@
 + LobbyScene
   + OnlineScene 로드후 다음으로 로드되는 컨텐츠 씬
   + 유저가 플레이할 캐릭터를 선택하는 씬
+
+<br>
 
 + UI_LobbyScene
   + 유저가 플레이할 캐릭터를 보여주고 선택하게 해주는 UI
@@ -422,6 +433,8 @@
 + TownScene
   + 플레이어 생성시 입장 하는 마을
   + 채팅, 플레이어와 상호 작용, 던전 입장을 할 수 있습니다.
+
+<br>
 
 + InstacnePortal
   + 던전에 입장하기 위한 포탈
@@ -445,6 +458,7 @@
     
 [BaseInstanceScene.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Scenes/Instance/BaseInstanceScene.cs)
 
+<br>
 
 + MonsterSpawner
   + 몬스터는 동적으로 생성하는 스포너
@@ -468,6 +482,7 @@
     
 [UI_Chat.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/Scene/UI_Chat.cs)
 
+<br>
 
 + UI_PlayerUI
   + 환경 설정, 인벤토리, 능력치, 파티 등 플레이어에 관련된 UI를 접근하게 하는 클래스
