@@ -150,6 +150,7 @@
   + 컨텐츠 핵심 클래스
   + 사용할 여러 컴포넌트 관리 및 초기화하는 매니저 클래스
   + Player, Monster 클래스의 부모 클래스
+
 [Creature.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Creature/Creature.cs)
 
 <br>
