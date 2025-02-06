@@ -106,7 +106,7 @@
 
 대부분 유니티 프로젝트에서 사용되고 자주 사용하는 기능들을 구현하여 싱글톤 클래스인 Managers에서 접근할 수 있도록 구현
       
-#### **코어 매니저**
+### **코어 매니저**
 
 + Managers - 모든 매니저들을 관리하는 매니저 클래스 및 미러 콜백 함수, 미러 커스텀 메시지 정의 및 처리하는 클래스
 + DataManager - 데이터 관리 매니저
@@ -118,7 +118,7 @@
 + UIManager - UI 매니저
 
         
-#### **컨텐츠 매니저**
+### **컨텐츠 매니저**
 
 + GameManager
   + 월드 아이템을 스폰하는 매니저 클래스
@@ -140,12 +140,9 @@
 <br>
 
 ---
-
-<br>
-
 ### **핵심 컨텐츠**
 
-#### **생명체**
+#### **크리쳐**
 + Creature
   + 컨텐츠 핵심 클래스
   + 사용할 여러 컴포넌트 관리 및 초기화하는 매니저 클래스
@@ -154,9 +151,10 @@
 [Creature.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Creature/Creature.cs)
 
 <br>
-<br>
 
-##### **플레이어**
+---
+
+#### **플레이어**
 + Player
   + 플레이어 캐릭터의 기초가 클래스
   + 로컬 플레이어가 쉽게 사용할 수 있도록 클라이언트 한정 싱글톤 구현
@@ -175,9 +173,10 @@
 [Archor.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Contents/Creature/Player/Archer.cs)
 
 <br>
-<br>
 
-##### **몬스터**
+---
+
+#### **몬스터**
 + Monster
   + 몬스터의 기초가 되는 클래스
   + 몬스터 컨트롤러, 스텟, 상태머신, 삭제 액션 등 컴포넌트 관리 및 초기화
@@ -376,6 +375,9 @@
     
 [BaseScene](https://github.com/k660323/BossHunter/blob/main/Scripts/Scenes/BaseScene.cs)
 
+<br>
+
+---
    
 #### **오프라인 씬**
 + OfflineScene
@@ -402,16 +404,22 @@
      
 [UI_MenuScene.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/UI/Scene/UI_MenuScene.cs)
 
+<br>
 
-##### **온라인 씬**
+---
+
+#### **온라인 씬**
 + OnlineScene
   + 클라이언트와 서버가 최초로 생성하는 씬
   + 여러 씬에서 사용되는 오브젝트들을 묶어 해당 씬에서 관리한다. (카메라, 포스트 프로세싱, 조명, 이벤트 시스템 등)
  
 [OnlineScene.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Scenes/OnlineScene.cs)
 
+<br>
 
-##### **로비 씬**
+---
+
+#### **로비 씬**
 + LobbyScene
   + OnlineScene 로드후 다음으로 로드되는 컨텐츠 씬
   + 유저가 플레이할 캐릭터를 선택하는 씬
@@ -433,8 +441,11 @@
 
 [Resources.cs](https://github.com/k660323/BossHunter/blob/main/Scripts/Managers/Core/ResourceManager.cs)
 
+<br>
 
-##### **마을 씬**
+---
+
+#### **마을 씬**
 + TownScene
   + 플레이어 생성시 입장 하는 마을
   + 채팅, 플레이어와 상호 작용, 던전 입장을 할 수 있습니다.
