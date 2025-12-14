@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OnWallState : BaseStatePlayer
 {
-    // Á¡ÇÁ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ¾î´ÀÁ¤µµ ½ÇÇàÇÑ ÈÄ¿¡ º®À» Å» ¼ö ÀÖ°Ô ÇÑ´Ù.
+    // ì í”„ ì• ë‹ˆë©”ì´ì…˜ì„ ì–´ëŠì •ë„ ì‹¤í–‰í•œ í›„ì— ë²½ì„ íƒˆ ìˆ˜ ìˆê²Œ í•œë‹¤.
     public bool isJumpable;
 
     RaycastHit hit;
@@ -15,17 +15,17 @@ public class OnWallState : BaseStatePlayer
 
     public override bool CheckCondition()
     {
-        // Á¡ÇÁ »óÅÂ°¡ ¾Æ´Ï¸é ½ºÅµ
-        if (creatureGS.StateMachine.State != Define.State.Jumping)
+        // ë•…ì— ìˆì§€ ì•Šìœ¼ë©´
+        if (PlayerControllerGS.IsOnGround)
             return false;
 
-        // Ãß°¡ÀûÀÎ Á¡ÇÁÅ° ´©¸£Áö ¾Ê¾ÒÀ¸¸é ½ºÅµ
+        // ì¶”ê°€ì ì¸ ì í”„í‚¤ ëˆ„ë¥´ì§€ ì•Šì•˜ìœ¼ë©´ ìŠ¤í‚µ
         if (PlayerControllerGS.IsJump == false)
             return false;
 
         Vector3 rayPos = creatureGS.transform.position;
         float maxDistance = 1.5f;
-        // Äİ¶óÀÌ´õ ³ôÀÌ ÀÎÅÍÆäÀÌ½º°¡ ÀÖÀ¸¸é ´ëÃæ ¼Õ ³ôÀÌ Âë yÃà ¹èÄ¡
+        // ì½œë¼ì´ë” ë†’ì´ ì¸í„°í˜ì´ìŠ¤ê°€ ìˆìœ¼ë©´ ëŒ€ì¶© ì† ë†’ì´ ì¯¤ yì¶• ë°°ì¹˜
         if (creatureGS is IColliderInfo)
         {
             IColliderInfo colliderHeight = creatureGS as IColliderInfo;
@@ -34,7 +34,7 @@ public class OnWallState : BaseStatePlayer
 
         }
 
-        // Á¡ÇÁÁßÀÌ°í Á¡ÇÁÅ°¸¦ ´­·¶´Ù¸é Ray¸¦ ½÷¼­ º®ÀÌ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+        // ì í”„ì¤‘ì´ê³  ì í”„í‚¤ë¥¼ ëˆŒë €ë‹¤ë©´ Rayë¥¼ ì´ì„œ ë²½ì´ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
         return creatureGS.GetSetPhysics.Raycast(rayPos, creatureGS.transform.forward, out hit, maxDistance, Managers.LayerManager.Ground | Managers.LayerManager.Wall, QueryTriggerInteraction.Ignore);
     }
 
@@ -43,43 +43,48 @@ public class OnWallState : BaseStatePlayer
         PlayerGS.GetNetAnim.animator.SetBool(Managers.AnimHash.BJumpIn, false);
         PlayerGS.GetNetAnim.animator.SetBool(Managers.AnimHash.BJumpOut, false);
 
-        // Äİ¶óÀÌ´õ ³ôÀÌ ÀÎÅÍÆäÀÌ½º°¡ ÀÖÀ¸¸é ´ëÃæ ¼Õ ³ôÀÌ Âë yÃà ¹èÄ¡ Äİ¶óÀÌ´õ ¹İÁö¸§ ¸¸Å­ ¶³¾îÆ®¸²
+       // ì½œë¼ì´ë” ë†’ì´ ì¸í„°í˜ì´ìŠ¤ê°€ ìˆìœ¼ë©´ ëŒ€ì¶© ì† ë†’ì´ ì¯¤ yì¶• ë°°ì¹˜ ì½œë¼ì´ë” ë°˜ì§€ë¦„ ë§Œí¼ ë–¨ì–´íŠ¸ë¦¼
         Vector3 destPos = hit.point;
         if (creatureGS is IColliderInfo)
         {
             IColliderInfo colliderInfo = creatureGS as IColliderInfo;
-            // ¸¸¾à RayÄ³½ºÆ®°¡ ¼º°øÀûÀ¸·Î µÇ¸é RayÀ§Ä¡·Î ÇÃ·¹ÀÌ¾î ÀÌµ¿
-            destPos.Set(hit.point.x - colliderInfo.GetRadius(), hit.point.y - colliderInfo.GetHeight() * 0.75f, hit.point.z - colliderInfo.GetRadius());
+
+            destPos += hit.normal * colliderInfo.GetRadius();
+            // ë§Œì•½ RayìºìŠ¤íŠ¸ê°€ ì„±ê³µì ìœ¼ë¡œ ë˜ë©´ Rayìœ„ì¹˜ë¡œ í”Œë ˆì´ì–´ ì´ë™
+            // í”Œë ˆì´ì–´ ì½œë¼ì´ë”í¬ê¸°ë¥¼ ëº€ ìœ„ì¹˜ì— í”Œë ˆì´ì–´ë¥¼ ì´ë™ (ì½œë¼ì´ë”ë¥¼ ë²½ì— ë§ê²Œ ë¶€ì°©ì‹œí‚¤ëŠ” ì—°ì‚°)
+            destPos.Set(hit.point.x,
+            hit.point.y - colliderInfo.GetHeight() * 0.75f, // ì¢Œí‘œê¸°ì¤€ì´ ë§¨ë°‘ì— ìˆê¸°ì—
+            hit.point.z);
         }
 
-        // ¸¸¾à RayÄ³½ºÆ®°¡ ¼º°øÀûÀ¸·Î µÇ¸é RayÀ§Ä¡·Î ÇÃ·¹ÀÌ¾î ÀÌµ¿
+        // ë§Œì•½ RayìºìŠ¤íŠ¸ê°€ ì„±ê³µì ìœ¼ë¡œ ë˜ë©´ Rayìœ„ì¹˜ë¡œ í”Œë ˆì´ì–´ ì´ë™
         creatureGS.GetRigidBody.MovePosition(destPos);
-        // º®ÂÊÀ¸·Î º¸µµ·Ï ÀÌµ¿½ÃÅ²´Ù.
+        // ë²½ìª½ìœ¼ë¡œ ë³´ë„ë¡ ì´ë™ì‹œí‚¨ë‹¤.
         creatureGS.GetRigidBody.MoveRotation(Quaternion.LookRotation(-hit.normal));
 
-        // ¹°¸® ¿µÇâ x
+        // ë¬¼ë¦¬ ì˜í–¥ x
         creatureGS.GetRigidBody.isKinematic = true;
-        // Áß·Â ²ö´Ù.
+        // ì¤‘ë ¥ ëˆë‹¤.
         creatureGS.GetRigidBody.useGravity = false;
-        // °¡¼Ó ÃÊ±âÈ­
+        // ê°€ì† ì´ˆê¸°í™”
         creatureGS.GetRigidBody.velocity = Vector3.zero;
-        // º®Å¸±â ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı
+        // ë²½íƒ€ê¸° ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ
         creatureGS.GetNetAnim.animator.SetBool(Managers.AnimHash.BOnWall, true);
-        // ÄÁÆ®·Ñ·¯¿¡¼­ Áß·Â Á¦¾î X
+        // ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ì¤‘ë ¥ ì œì–´ X
         PlayerControllerGS.IsOnWall = true;
     }
 
     public override void ExitState(Define.State _state, BaseState baseState)
     {
-        // ¹°¸® ¿µÇâ o
+        // ë¬¼ë¦¬ ì˜í–¥ o
         creatureGS.GetRigidBody.isKinematic = false;
-        // Áß·Â Å²´Ù.
+        // ì¤‘ë ¥ í‚¨ë‹¤.
         creatureGS.GetRigidBody.useGravity = true;
-        // º®Å¸±â ¾Ö´Ï¸ŞÀÌ¼Ç ²ô±â
+        // ë²½íƒ€ê¸° ì• ë‹ˆë©”ì´ì…˜ ë„ê¸°
         creatureGS.GetNetAnim.animator.SetBool(Managers.AnimHash.BOnWall, false);
-        // ÄÁÆ®·Ñ·¯¿¡¼­ Áß·Â Á¦¾î O
+        // ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ì¤‘ë ¥ ì œì–´ O
         PlayerControllerGS.IsOnWall = false;
-        // Á¡ÇÁ °¡´É Å¸ÀÌ¹Ö
+        // ì í”„ ê°€ëŠ¥ íƒ€ì´ë°
         isJumpable = false;
     }
 
