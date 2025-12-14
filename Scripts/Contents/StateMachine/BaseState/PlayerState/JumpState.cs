@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class JumpState : BaseStatePlayer
 {
-    // Á¡ÇÁ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ¾î´ÀÁ¤µµ ½ÇÇàÇÑ ÈÄ¿¡ º®À» Å» ¼ö ÀÖ°Ô ÇÑ´Ù.
+    // ì í”„ ì• ë‹ˆë©”ì´ì…˜ì„ ì–´ëŠì •ë„ ì‹¤í–‰í•œ í›„ì— ë²½ì„ íƒˆ ìˆ˜ ìˆê²Œ í•œë‹¤.
     public bool isOnWallable;
 
     public JumpState(Define.State _state, Player _player, PlayerController _playerController) : base(_state, _player, _playerController)
@@ -15,7 +15,12 @@ public class JumpState : BaseStatePlayer
 
     public override bool CheckCondition()
     {
-        return PlayerControllerGS.IsJump;
+         if(PlayerControllerGS.IsJump == false)
+         {
+             return false;
+         }
+
+         return (creatureGS.StateMachine.State == Define.State.OnWall) ? true : PlayerControllerGS.IsOnGround;
     }
     public override void EnterState()
     {
@@ -23,7 +28,7 @@ public class JumpState : BaseStatePlayer
         PlayerGS.GetNetAnim.animator.SetBool(Managers.AnimHash.BJumpOut, false);
         PlayerGS.GetRigidBody.velocity = new Vector3(PlayerGS.GetRigidBody.velocity.x, 0.0f, PlayerGS.GetRigidBody.velocity.z);
         Vector3 moveDir = PlayerControllerGS.inputDirection;
-        PlayerGS.GetRigidBody.AddForce(moveDir + Vector3.up * 5.0f, ForceMode.Impulse); // Á¡ÇÁ ¼¼±â ¼öÁ¤ ¿¹Á¤
+        PlayerGS.GetRigidBody.AddForce(moveDir + Vector3.up * 5.0f, ForceMode.Impulse); // ì í”„ ì„¸ê¸° ìˆ˜ì • ì˜ˆì •
     }
 
     public override void ExitState(Define.State _state, BaseState baseState)
