@@ -532,4 +532,4 @@
 + https://www.youtube.com/watch?v=ubSgPd6OHsY
 
 ## 8. PDF
-+ https://github.com/k660323/BossHunter/blob/main/PDF/Boss%20Hunter%20MMO%20RPG.pdf
++ https://github.com/k660323/BossHunter/blob/main/PDF/BOSS%20HUNTER%20MMO%20RPG.pdf
